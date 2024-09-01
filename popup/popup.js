@@ -1,12 +1,14 @@
 let tasks = [];
 
 function updateTime() {
-  chrome.storage.local.get(["timer"], (res) => {
+  chrome.storage.local.get(["timer", "timeOption"], (res) => {
     const time = document.getElementById("time");
-    const minutes = `${25 - res.timer / 60}`.padStart(2, "0");
+    const minutes = `${res.timeOption - res.timer / 60}`.padStart(2, "0");
     const seconds = `${60 - (res.timer % 60)}`.padStart(2, "0");
     time.textContent =
-      res.timer > 0 ? `${Math.trunc(minutes)}:${seconds}` : "25:00";
+      res.timer > 0
+        ? `${Math.trunc(minutes)}:${seconds}`
+        : `${res.timeOption}:00`;
   });
 }
 
